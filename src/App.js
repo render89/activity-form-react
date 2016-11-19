@@ -98,10 +98,14 @@ class App extends React.Component {
 					floatingLabel
 					 />
 				<div>
+					<label>
 					<input type="date" onChange={this.handleDateContractChange.bind(this)} />
+					</label>
 				</div>
 				<div>
+					<label>
 					<input type="file" onChange={this.handleIdContractChange.bind(this)} />
+					</label>
 				</div>
 			</div>
 		)
@@ -117,7 +121,9 @@ class App extends React.Component {
 					floatingLabel/>
 				</div>
 				<div>
+					<label>
 					<input type="file" onChange={this.handleIdOfferChange.bind(this)} />
+					</label>
 				</div>
 			</div>
 		)
@@ -194,6 +200,9 @@ class App extends React.Component {
 							<rmd.Button type="submit" onClick={this.handleSubmit.bind(this)}>Отправить файл</rmd.Button>
 						</form>
 					</div>
+					
+					{this.state.activity_id === '4' ? this.renderContract() : ""}
+					{this.state.activity_id === '3' ? this.renderOffer() : ""}
 
 					<rmd.CardActions border>
 						<rmd.Button colored type="submit" onClick={this.handleSubmitForm.bind(this)}>
@@ -201,12 +210,9 @@ class App extends React.Component {
 						</rmd.Button>
 					</rmd.CardActions>	
 
-					{this.state.activity_id === '4' ? this.renderContract() : ""}
-					{this.state.activity_id === '3' ? this.renderOffer() : ""}
-
 				</rmd.Card>
 
-				<rmd.Card shadow={0} style={{width: '512px', margin: 'auto'}}>
+				<rmd.Card shadow={0} style={{width: '512px', margin: 'auto', 'margin-top': '20px'}}>
 					<div className="realTime">
 						<pre>
 							{JSON.stringify(this.state, null, 2)}
