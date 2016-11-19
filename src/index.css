@@ -1,0 +1,21 @@
+body, .main {
+	height: 100%;
+	font-family: sans-serif;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	background: rgb(229,230,150);
+	background: -moz-linear-gradient(top, rgba(229,230,150,1) 19%, rgba(209,211,96,1) 58%);
+	background: -webkit-linear-gradient(top, rgba(229,230,150,1) 19%,rgba(209,211,96,1) 58%);
+	background: linear-gradient(to bottom, rgba(229,230,150,1) 19%,rgba(209,211,96,1) 58%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e696', endColorstr='#d1d360',GradientType=0 );
+}
+input {
+    border:1px solid #9E9E9E;
+    color: #000000;
+    padding: 3px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-size: 11px;
+    font-family: Verdana;
+    background: #FFF;
+}
