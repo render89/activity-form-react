@@ -5,49 +5,44 @@ import 'react-select/dist/react-select.css';
 import 'whatwg-fetch';
 
 class App extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
-		name: null,
-		phone_id: null,
-		activity_id: null,
-		contract: {
-			number: null,
-			date: null,
-			file_id: null
-		},
-		offer: {
-			sum: null,
-			file_id: null
-		}
+			name: null,
+			phone_id: null,
+			activity_id: null,
+			contract: {
+				number: null,
+				date: null,
+				file_id: null
+			},
+			offer: {
+				sum: null,
+				file_id: null
+			}
 		}
 	};
-	
 	handleChangeName(event) {
 		this.setState({
 			name: event.target.value	
 		})
 	};
-
 	handleChangeOfferSum(event) {
 		let offer = this.state.offer;
 		let value = event.target.value;
 		offer.sum = Number(Number(value).toFixed(2));
 		this.setState({offer})
-	}
-
+	};
 	handleChangeActivity(event) {
 		this.setState({
 			activity_id: event.value
 		})
 	};
-
 	handleChangePhone(event) {
 		this.setState({
 			phone_id: event.value
 		})
 	};
-
 	handleIdContractChange() {
 		let random = Math.floor(Math.random() * 10);
 		let contract = this.state.contract;
@@ -59,24 +54,20 @@ class App extends React.Component {
 		contract.date = event.target.value
 		this.setState({contract})
 	};
-
 	handleIdOfferChange() {
 		let random = Math.floor(Math.random() * 10);
 		let offer = this.state.offer;
 		offer.file_id = random;
 		this.setState({offer})
 	};
-
 	handleChangeContractNumber(event){
 		let contract = this.state.contract;
 		contract.number = event.target.value;
 		this.setState({contract})
 	};
-
 	handleSubmit(e) {
     	e.preventDefault();
 	};
-
 	handleImageChange(e) {
     	e.preventDefault();
     	let reader = new FileReader();
@@ -89,8 +80,16 @@ class App extends React.Component {
     	}
     	reader.readAsDataURL(file)
 	};
-
-	renderContract(){
+	handleSubmitForm() {
+		fetch('/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state)
+		})
+	};	
+	renderContract() {
 		return (
 			<div>
 				<h6>Пожалуйста введите номер договора:</h6>
@@ -110,17 +109,16 @@ class App extends React.Component {
 			</div>
 		)
 	};
-
-	renderOffer(){
+	renderOffer() {
 		return(
 			<div>
 				<div>
-				<h6>Пожалуйста введите сумму:</h6>
-				<rmd.Textfield
-					onChange={this.handleChangeOfferSum.bind(this)}
-					label="Коммерческое предложение"
-					floatingLabel
-					style={{'margin-top': '-20px', width: '100%'}} />
+					<h6>Пожалуйста введите сумму:</h6>
+					<rmd.Textfield
+						onChange={this.handleChangeOfferSum.bind(this)}
+						label="Коммерческое предложение"
+						floatingLabel
+						style={{'margin-top': '-20px', width: '100%'}} />
 				</div>
 				<div>
 					<h6>Пожалуйста выберите файл:</h6>
@@ -129,35 +127,21 @@ class App extends React.Component {
 			</div>
 		)
 	};
-
-	handleSubmitForm() {
-		fetch('/', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(this.state)
-		})
-	};
-	
 	render() {
 		let optionsActivity = [
 			{ value: '1', label: 'Звонок' },
 			{ value: '2', label: 'Встреча' },
 			{ value: '3', label: 'Коммерческое предложение' },
 			{ value: '4', label: 'Договор' }
-		];
-		
+		];	
 		let optionsPhone = [
 			{ value: '1', label: '0933339977' },
 			{ value: '2', label: '0999997223' },
 			{ value: '3', label: '0677653211' },
 			{ value: '4', label: '0662233445' }
-		];
-		
+		];		
 		let {imagePreviewUrl} = this.state;
-		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{'max-width': '100px', 'max-height': '100px'}}/> : <h6>Пожалуйста выберите файл:</h6>;
-					   
+		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{'max-width': '100px', 'max-height': '100px'}}/> : <h6>Пожалуйста выберите файл:</h6>;			   
     	return (
 			<div>
 				<rmd.Card shadow={0} style={{width: '512px', padding: '10px', height: 'auto'}}>
@@ -195,7 +179,9 @@ class App extends React.Component {
 						</div>
 						<form onSubmit={this.handleSubmit.bind(this)}>
 							<input type="file" onChange={this.handleImageChange.bind(this)} />
-							<rmd.Button type="submit" onClick={this.handleSubmit.bind(this)}>Отправить файл</rmd.Button>
+							<rmd.Button type="submit" onClick={this.handleSubmit.bind(this)}>
+								Отправить файл
+							</rmd.Button>
 						</form>
 					</div>
 					{this.state.activity_id === '4' ? this.renderContract() : ""}
