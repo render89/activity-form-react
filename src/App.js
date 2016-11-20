@@ -8,17 +8,17 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: null,
-			phone_id: null,
-			activity_id: null,
+			name: '',
+			phone_id: '',
+			activity_id: '',
 			contract: {
-				number: null,
-				date: null,
-				file_id: null
+				number: '',
+				date: '',
+				file_id: ''
 			},
 			offer: {
-				sum: null,
-				file_id: null
+				sum: '',
+				file_id: ''
 			}
 		}
 	};
@@ -155,7 +155,7 @@ class App extends React.Component {
 			{ value: '4', label: '0662233445' }
 		];		
 		let {imagePreviewUrl} = this.state;
-		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{maxWidth: '100px', maxHeight: '100px'}}/> : <h6>Загрузите фото:</h6>;	
+		let imagePreview = imagePreviewUrl ? <img alt="img" src={imagePreviewUrl} style={{maxWidth: '100px', maxHeight: '100px'}}/> : <h6>Загрузите фото:</h6>;	
 		
 		return (
 			<div>
