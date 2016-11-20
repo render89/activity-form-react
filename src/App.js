@@ -82,7 +82,7 @@ class App extends React.Component {
 		e.preventDefault();
 	};
 	handleImageChange(e) {
-    	e.preventDefault();
+		e.preventDefault();
     	let reader = new FileReader();
     	let file = e.target.files[0];
 		reader.onloadend = () => {
@@ -157,7 +157,7 @@ class App extends React.Component {
 		let {imagePreviewUrl} = this.state;
 		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{maxWidth: '100px', maxHeight: '100px'}}/> : <h6>Загрузите фото:</h6>;	
 		
-    	return (
+		return (
 			<div>
 				<rmd.Card shadow={0} style={{width: '512px', minHeight: '556px', position: 'absolute', backgroundColor:'LavenderBlush', padding: '10px', height: 'auto'}}>
 					<h4>Форма добавления активности</h4>
