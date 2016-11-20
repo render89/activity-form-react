@@ -98,7 +98,7 @@ class App extends React.Component {
 					onChange={this.handleChangeContractNumber.bind(this)}
 					label="Договор"
 					floatingLabel
-					 />
+					style={{'margin-top': '-20px', width: '100%'}} />
 				<div>
 					<h6>Пожалуйста выберите дату:</h6>
 					<input type="date" onChange={this.handleDateContractChange.bind(this)} />
@@ -119,7 +119,8 @@ class App extends React.Component {
 				<rmd.Textfield
 					onChange={this.handleChangeOfferSum.bind(this)}
 					label="Коммерческое предложение"
-					floatingLabel/>
+					floatingLabel
+					style={{'margin-top': '-20px', width: '100%'}} />
 				</div>
 				<div>
 					<h6>Пожалуйста выберите файл:</h6>
@@ -155,14 +156,12 @@ class App extends React.Component {
 		];
 		
 		let {imagePreviewUrl} = this.state;
-		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} /> : <h6>Пожалуйста выберите файл:</h6>;
+		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{'max-width': '100px', 'max-height': '100px'}}/> : <h6>Пожалуйста выберите файл:</h6>;
 					   
     	return (
 			<div>
-			
 				<rmd.Card shadow={0} style={{width: '512px', padding: '10px', height: 'auto'}}>
 					<h4>Форма добавления активности</h4>
-
 					<div>
 						<h6>Введите ФИО:</h6>
 						<rmd.Textfield
@@ -170,10 +169,9 @@ class App extends React.Component {
 							label="ФИО"
 							floatingLabel
 							value={this.state.name}
-							style={{'margin-top': '-20px'}} />
+							style={{'margin-top': '-20px', width: '100%'}} />
 					</div>
-
-					<div>
+					<div style={{'margin-top': '-10px'}}>
 						<h6>Введите свой номер телефона:</h6>
 						<Select
 							name="form-field-name"
@@ -182,7 +180,6 @@ class App extends React.Component {
 							onChange={this.handleChangePhone.bind(this)}
 							style={{'align': 'center'}} />
 					</div>
-
 					<div>
 						<h6>Выберите тип активности:</h6>
 						<Select
@@ -192,7 +189,6 @@ class App extends React.Component {
 							onChange={this.handleChangeActivity.bind(this)}
 							style={{'align': 'center'}} />
 					</div>
-
 					<div>
 						<div>
 							{imagePreview}
@@ -202,18 +198,14 @@ class App extends React.Component {
 							<rmd.Button type="submit" onClick={this.handleSubmit.bind(this)}>Отправить файл</rmd.Button>
 						</form>
 					</div>
-					
 					{this.state.activity_id === '4' ? this.renderContract() : ""}
 					{this.state.activity_id === '3' ? this.renderOffer() : ""}
-
 					<rmd.CardActions border>
 						<rmd.Button colored type="submit" onClick={this.handleSubmitForm.bind(this)}>
 							Отправить форму
 						</rmd.Button>
 					</rmd.CardActions>	
-
 				</rmd.Card>
-
 				<rmd.Card shadow={0} style={{width: '512px', float: 'right', 'margin-top': '-556px', padding: '10px'}}>
 					<div>
 						<pre>
@@ -221,7 +213,6 @@ class App extends React.Component {
 						</pre>
 					</div>
 				</rmd.Card>
-			
 			</div>
     	);
 	}
