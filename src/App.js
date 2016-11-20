@@ -79,7 +79,7 @@ class App extends React.Component {
 		this.setState({contract})
 	};
 	handleSubmit(e) {
-    	e.preventDefault();
+		e.preventDefault();
 	};
 	handleImageChange(e) {
     	e.preventDefault();
