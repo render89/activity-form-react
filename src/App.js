@@ -7,8 +7,7 @@ import 'whatwg-fetch';
 class App extends React.Component {
 	constructor(props){
 		super(props);
-	};
-	state = {
+		this.state = {
 		name: null,
 		phone_id: null,
 		activity_id: null,
@@ -21,7 +20,9 @@ class App extends React.Component {
 			sum: null,
 			file_id: null
 		}
+		}
 	};
+	
 	handleChangeName(event) {
 		this.setState({
 			name: event.target.value	
@@ -92,20 +93,19 @@ class App extends React.Component {
 	renderContract(){
 		return (
 			<div>
+				<h6>Пожалуйста введите номер договора:</h6>
 				<rmd.Textfield
 					onChange={this.handleChangeContractNumber.bind(this)}
 					label="Договор"
 					floatingLabel
 					 />
 				<div>
-					<label>
+					<h6>Пожалуйста выберите дату:</h6>
 					<input type="date" onChange={this.handleDateContractChange.bind(this)} />
-					</label>
 				</div>
 				<div>
-					<label>
+					<h6>Пожалуйста выберите файл:</h6>
 					<input type="file" onChange={this.handleIdContractChange.bind(this)} />
-					</label>
 				</div>
 			</div>
 		)
@@ -115,15 +115,15 @@ class App extends React.Component {
 		return(
 			<div>
 				<div>
+				<h6>Пожалуйста введите сумму:</h6>
 				<rmd.Textfield
 					onChange={this.handleChangeOfferSum.bind(this)}
 					label="Коммерческое предложение"
 					floatingLabel/>
 				</div>
 				<div>
-					<label>
+					<h6>Пожалуйста выберите файл:</h6>
 					<input type="file" onChange={this.handleIdOfferChange.bind(this)} />
-					</label>
 				</div>
 			</div>
 		)
@@ -158,17 +158,19 @@ class App extends React.Component {
 		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} /> : <h6>Пожалуйста выберите файл:</h6>;
 					   
     	return (
-			<div className="main">
+			<div>
 			
-				<rmd.Card shadow={0} style={{width: '512px', margin: 'auto'}}>
+				<rmd.Card shadow={0} style={{width: '512px', padding: '10px', height: 'auto'}}>
 					<h4>Форма добавления активности</h4>
 
 					<div>
+						<h6>Введите ФИО:</h6>
 						<rmd.Textfield
 							onChange={this.handleChangeName.bind(this)}
-							label="Введите ФИО"
+							label="ФИО"
 							floatingLabel
-							value={this.state.name} />
+							value={this.state.name}
+							style={{'margin-top': '-20px'}} />
 					</div>
 
 					<div>
@@ -212,8 +214,8 @@ class App extends React.Component {
 
 				</rmd.Card>
 
-				<rmd.Card shadow={0} style={{width: '512px', margin: 'auto', 'margin-top': '20px'}}>
-					<div className="realTime">
+				<rmd.Card shadow={0} style={{width: '512px', float: 'right', 'margin-top': '-556px', padding: '10px'}}>
+					<div>
 						<pre>
 							{JSON.stringify(this.state, null, 2)}
 						</pre>
