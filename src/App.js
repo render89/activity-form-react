@@ -92,18 +92,20 @@ class App extends React.Component {
 	renderContract() {
 		return (
 			<div>
-				<h6>Пожалуйста введите номер договора:</h6>
-				<rmd.Textfield
-					onChange={this.handleChangeContractNumber.bind(this)}
-					label="Договор"
-					floatingLabel
-					style={{'margin-top': '-20px', width: '100%'}} />
-				<div>
-					<h6>Пожалуйста выберите дату:</h6>
+				<div className="main">
+					<h6>Введите номер договора:</h6>
+					<rmd.Textfield
+						onChange={this.handleChangeContractNumber.bind(this)}
+						label="Договор"
+						floatingLabel
+						style={{'margin-top': '-20px', width: '100%'}} />
+				</div>
+				<div className="main">
+					<h6>Выберите дату:</h6>
 					<input type="date" onChange={this.handleDateContractChange.bind(this)} />
 				</div>
-				<div>
-					<h6>Пожалуйста выберите файл:</h6>
+				<div className="main">
+					<h6>Выберите файл:</h6>
 					<input type="file" onChange={this.handleIdContractChange.bind(this)} />
 				</div>
 			</div>
@@ -112,16 +114,16 @@ class App extends React.Component {
 	renderOffer() {
 		return(
 			<div>
-				<div>
-					<h6>Пожалуйста введите сумму:</h6>
+				<div className="main">
+					<h6>Введите сумму:</h6>
 					<rmd.Textfield
 						onChange={this.handleChangeOfferSum.bind(this)}
 						label="Коммерческое предложение"
 						floatingLabel
 						style={{'margin-top': '-20px', width: '100%'}} />
 				</div>
-				<div>
-					<h6>Пожалуйста выберите файл:</h6>
+				<div className="main">
+					<h6>Выберите файл:</h6>
 					<input type="file" onChange={this.handleIdOfferChange.bind(this)} />
 				</div>
 			</div>
@@ -141,7 +143,7 @@ class App extends React.Component {
 			{ value: '4', label: '0662233445' }
 		];		
 		let {imagePreviewUrl} = this.state;
-		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{'max-width': '100px', 'max-height': '100px'}}/> : <h6>Пожалуйста выберите файл:</h6>;			   
+		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{'max-width': '100px', 'max-height': '100px'}}/> : <h6> выберите файл:</h6>;			   
     	return (
 			<div>
 				<rmd.Card shadow={0} style={{width: '512px', padding: '10px', height: 'auto'}}>
@@ -155,8 +157,8 @@ class App extends React.Component {
 							value={this.state.name}
 							style={{'margin-top': '-20px', width: '100%'}} />
 					</div>
-					<div style={{'margin-top': '-10px'}}>
-						<h6>Введите свой номер телефона:</h6>
+					<div className="main">
+						<h6>Введите номер телефона:</h6>
 						<Select
 							name="form-field-name"
 							value={this.state.phone_id}
@@ -164,7 +166,7 @@ class App extends React.Component {
 							onChange={this.handleChangePhone.bind(this)}
 							style={{'align': 'center'}} />
 					</div>
-					<div>
+					<div className="main">
 						<h6>Выберите тип активности:</h6>
 						<Select
 							name="form-field-name"

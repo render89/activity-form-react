@@ -14,3 +14,6 @@ input {
 div {
 	margin-top: auto;
 }
+.main {
+	margin-top: -10px;
+}
