@@ -34,9 +34,22 @@ class App extends React.Component {
 		this.setState({offer})
 	};
 	handleChangeActivity(event) {
+		let offer = this.state.offer;
+		let contract = this.state.contract;
+		contract.number = null;
+		contract.date = null;
+		contract.file_id = null;
+		offer.sum = null;
+		offer.file_id = null;
 		this.setState({
 			activity_id: event.value
 		})
+		if (event.value !== '3'){
+			this.setState({contract})
+		}
+		if (event.value !== '4'){
+			this.setState({offer})
+		}
 	};
 	handleChangePhone(event) {
 		this.setState({
@@ -74,7 +87,6 @@ class App extends React.Component {
     	let file = e.target.files[0];
 		reader.onloadend = () => {
     		this.setState({
-        		file: file,
         		imagePreviewUrl: reader.result
     		})
     	}
@@ -98,15 +110,15 @@ class App extends React.Component {
 						onChange={this.handleChangeContractNumber.bind(this)}
 						label="Договор"
 						floatingLabel
-						style={{'margin-top': '-20px', width: '100%'}} />
+						style={{marginTop: '-20px', width: '100%', backgroundColor:'LavenderBlush'}} />
 				</div>
 				<div className="main">
 					<h6>Выберите дату:</h6>
-					<input type="date" onChange={this.handleDateContractChange.bind(this)} />
+					<input style={{backgroundColor:'LavenderBlush'}} type="date" onChange={this.handleDateContractChange.bind(this)} />
 				</div>
 				<div className="main">
 					<h6>Выберите файл:</h6>
-					<input type="file" onChange={this.handleIdContractChange.bind(this)} />
+					<input style={{backgroundColor:'LavenderBlush'}} type="file" onChange={this.handleIdContractChange.bind(this)} />
 				</div>
 			</div>
 		)
@@ -120,11 +132,11 @@ class App extends React.Component {
 						onChange={this.handleChangeOfferSum.bind(this)}
 						label="Коммерческое предложение"
 						floatingLabel
-						style={{'margin-top': '-20px', width: '100%'}} />
+						style={{marginTop: '-20px', width: '100%', backgroundColor:'LavenderBlush'}} />
 				</div>
 				<div className="main">
 					<h6>Выберите файл:</h6>
-					<input type="file" onChange={this.handleIdOfferChange.bind(this)} />
+					<input style={{backgroundColor:'LavenderBlush'}} type="file" onChange={this.handleIdOfferChange.bind(this)} />
 				</div>
 			</div>
 		)
@@ -133,8 +145,8 @@ class App extends React.Component {
 		let optionsActivity = [
 			{ value: '1', label: 'Звонок' },
 			{ value: '2', label: 'Встреча' },
-			{ value: '3', label: 'Коммерческое предложение' },
-			{ value: '4', label: 'Договор' }
+			{ value: '3', label: 'Договор' },
+			{ value: '4', label: 'Коммерческое предложение' }
 		];	
 		let optionsPhone = [
 			{ value: '1', label: '0933339977' },
@@ -143,10 +155,11 @@ class App extends React.Component {
 			{ value: '4', label: '0662233445' }
 		];		
 		let {imagePreviewUrl} = this.state;
-		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{'max-width': '100px', 'max-height': '100px'}}/> : <h6> выберите файл:</h6>;			   
+		let imagePreview = imagePreviewUrl ? <img alt="image" src={imagePreviewUrl} style={{maxWidth: '100px', maxHeight: '100px'}}/> : <h6>Загрузите фото:</h6>;	
+		
     	return (
 			<div>
-				<rmd.Card shadow={0} style={{width: '512px', padding: '10px', height: 'auto'}}>
+				<rmd.Card shadow={0} style={{width: '512px', minHeight: '556px', position: 'absolute', backgroundColor:'LavenderBlush', padding: '10px', height: 'auto'}}>
 					<h4>Форма добавления активности</h4>
 					<div>
 						<h6>Введите ФИО:</h6>
@@ -155,7 +168,7 @@ class App extends React.Component {
 							label="ФИО"
 							floatingLabel
 							value={this.state.name}
-							style={{'margin-top': '-20px', width: '100%'}} />
+							style={{marginTop: '-20px', width: '100%'}} />
 					</div>
 					<div className="main">
 						<h6>Введите номер телефона:</h6>
@@ -164,7 +177,7 @@ class App extends React.Component {
 							value={this.state.phone_id}
 							options={optionsPhone}
 							onChange={this.handleChangePhone.bind(this)}
-							style={{'align': 'center'}} />
+							style={{'align': 'center', backgroundColor:'LavenderBlush'}} />
 					</div>
 					<div className="main">
 						<h6>Выберите тип активности:</h6>
@@ -173,28 +186,28 @@ class App extends React.Component {
 							value={this.state.activity_id}
 							options={optionsActivity}
 							onChange={this.handleChangeActivity.bind(this)}
-							style={{'align': 'center'}} />
+							style={{'align': 'center', backgroundColor:'LavenderBlush'}} />
 					</div>
 					<div>
 						<div>
 							{imagePreview}
 						</div>
 						<form onSubmit={this.handleSubmit.bind(this)}>
-							<input type="file" onChange={this.handleImageChange.bind(this)} />
+							<input style={{backgroundColor:'LavenderBlush'}} type="file" onChange={this.handleImageChange.bind(this)} />
 							<rmd.Button type="submit" onClick={this.handleSubmit.bind(this)}>
 								Отправить файл
 							</rmd.Button>
 						</form>
 					</div>
-					{this.state.activity_id === '4' ? this.renderContract() : ""}
-					{this.state.activity_id === '3' ? this.renderOffer() : ""}
+					{this.state.activity_id === '3' ? this.renderContract() : ""}
+					{this.state.activity_id === '4' ? this.renderOffer() : ""}
 					<rmd.CardActions border>
 						<rmd.Button colored type="submit" onClick={this.handleSubmitForm.bind(this)}>
 							Отправить форму
 						</rmd.Button>
 					</rmd.CardActions>	
 				</rmd.Card>
-				<rmd.Card shadow={0} style={{width: '512px', float: 'right', 'margin-top': '-556px', padding: '10px'}}>
+				<rmd.Card shadow={0} style={{width: '256px', backgroundColor:'LavenderBlush', position: 'absolute', left: '1110px', padding: '10px'}}>
 					<div>
 						<pre>
 							{JSON.stringify(this.state, null, 2)}
