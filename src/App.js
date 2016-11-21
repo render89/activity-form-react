@@ -207,7 +207,7 @@ class App extends React.Component {
 						</rmd.Button>
 					</rmd.CardActions>	
 				</rmd.Card>
-				<rmd.Card shadow={0} style={{width: '256px', backgroundColor:'LavenderBlush', position: 'fixed', left: '1110px', padding: '10px'}}>
+				<rmd.Card shadow={0} style={{width: '256px', backgroundColor:'LavenderBlush', position: 'fixed', right: 0, padding: '10px'}}>
 					<div>
 						<pre>
 							{JSON.stringify(this.state, null, 2)}
