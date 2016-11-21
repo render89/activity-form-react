@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Contract from './ContractComponent';
-import Offer from './OfferComponent';
 import './index.css';
 import '../node_modules/react-mdl/extra/material.css';
 import '../node_modules/react-mdl/extra/material.js';
