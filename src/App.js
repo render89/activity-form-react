@@ -3,80 +3,51 @@ import * as rmd from 'react-mdl';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import 'whatwg-fetch';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			name: '',
-			phone_id: '',
-			activity_id: '',
-			contract: {
-				number: '',
-				date: '',
-				file_id: ''
-			},
-			offer: {
-				sum: '',
-				file_id: ''
-			}
-		}
-	};
 	handleChangeName(event) {
-		this.setState({
-			name: event.target.value	
-		})
+		this.props.dispatch({ type: 'change_name', payload: event.target.value });
 	};
 	handleChangeOfferSum(event) {
-		let offer = this.state.offer;
+		let offer = this.props.store.offer;
 		let value = event.target.value;
 		offer.sum = Number(Number(value).toFixed(2));
-		this.setState({offer})
+		this.props.dispatch({ type: 'change_offer', payload: offer });
 	};
 	handleChangeActivity(event) {
-		let offer = this.state.offer;
-		let contract = this.state.contract;
-		contract.number = null;
-		contract.date = null;
-		contract.file_id = null;
-		offer.sum = null;
-		offer.file_id = null;
-		this.setState({
-			activity_id: event.value
-		})
+		this.props.dispatch({ type: 'choose_activity', payload: event.value});
 		if (event.value !== '3'){
-			this.setState({contract})
+			this.props.dispatch({ type: 'change_offer', payload: { sum: "", file_id: "" }});
 		}
 		if (event.value !== '4'){
-			this.setState({offer})
+			this.props.dispatch({ type: 'change_offer', payload: { number: "", date: '', file_id: "" }});
 		}
 	};
 	handleChangePhone(event) {
-		this.setState({
-			phone_id: event.value
-		})
+		this.props.dispatch({ type: 'update_phone', payload: event.value });
 	};
 	handleIdContractChange() {
 		let random = Math.floor(Math.random() * 10);
-		let contract = this.state.contract;
+		let contract = this.props.store.contract;
 		contract.file_id = random;
-		this.setState({contract})
+		this.props.dispatch({ type: 'change_contract', payload: contract });
 	};
 	handleDateContractChange(event) {
-		let contract = this.state.contract;
+		let contract = this.props.store.contract;
 		contract.date = event.target.value
-		this.setState({contract})
+		this.props.dispatch({ type: 'change_contract', payload: contract });
 	};
 	handleIdOfferChange() {
 		let random = Math.floor(Math.random() * 10);
-		let offer = this.state.offer;
+		let offer = this.props.store.offer;
 		offer.file_id = random;
-		this.setState({offer})
+		this.props.dispatch({ type: 'change_offer', payload: offer });
 	};
 	handleChangeContractNumber(event){
-		let contract = this.state.contract;
+		let contract = this.props.store.contract;
 		contract.number = event.target.value;
-		this.setState({contract})
+		this.props.dispatch({ type: 'change_contract', payload: contract });
 	};
 	handleSubmit(e) {
 		e.preventDefault();
@@ -86,9 +57,7 @@ class App extends React.Component {
     	let reader = new FileReader();
     	let file = e.target.files[0];
 		reader.onloadend = () => {
-    		this.setState({
-        		imagePreviewUrl: reader.result
-    		})
+			this.props.dispatch({ type: 'update_image_preview', payload: reader.result });
     	}
     	reader.readAsDataURL(file)
 	};
@@ -98,9 +67,9 @@ class App extends React.Component {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(this.state)
+			body: JSON.stringify(this.props.store)
 		})
-	};	
+	};
 	renderContract() {
 		return (
 			<div>
@@ -154,7 +123,7 @@ class App extends React.Component {
 			{ value: '3', label: '0677653211' },
 			{ value: '4', label: '0662233445' }
 		];		
-		let {imagePreviewUrl} = this.state;
+		let {imagePreviewUrl} = this.props.store;
 		let imagePreview = imagePreviewUrl ? <img alt="img" src={imagePreviewUrl} style={{maxWidth: '100px', maxHeight: '100px'}}/> : <h6>Загрузите фото:</h6>;	
 		
 		return (
@@ -167,14 +136,14 @@ class App extends React.Component {
 							onChange={this.handleChangeName.bind(this)}
 							label="ФИО"
 							floatingLabel
-							value={this.state.name}
+							value={this.props.store.name}
 							style={{marginTop: '-20px', width: '100%'}} />
 					</div>
 					<div className="main">
 						<h6>Введите номер телефона:</h6>
 						<Select
 							name="form-field-name"
-							value={this.state.phone_id}
+							value={this.props.store.phone_id}
 							options={optionsPhone}
 							onChange={this.handleChangePhone.bind(this)}
 							style={{'align': 'center', backgroundColor:'LavenderBlush'}} />
@@ -183,7 +152,7 @@ class App extends React.Component {
 						<h6>Выберите тип активности:</h6>
 						<Select
 							name="form-field-name"
-							value={this.state.activity_id}
+							value={this.props.store.activity_id}
 							options={optionsActivity}
 							onChange={this.handleChangeActivity.bind(this)}
 							style={{'align': 'center', backgroundColor:'LavenderBlush'}} />
@@ -199,8 +168,8 @@ class App extends React.Component {
 							</rmd.Button>
 						</form>
 					</div>
-					{this.state.activity_id === '3' ? this.renderContract() : ""}
-					{this.state.activity_id === '4' ? this.renderOffer() : ""}
+					{this.props.store.activity_id === '3' ? this.renderContract() : ""}
+					{this.props.store.activity_id === '4' ? this.renderOffer() : ""}
 					<rmd.CardActions border>
 						<rmd.Button colored type="submit" onClick={this.handleSubmitForm.bind(this)}>
 							Отправить форму
@@ -210,7 +179,7 @@ class App extends React.Component {
 				<rmd.Card shadow={0} style={{width: '256px', backgroundColor:'LavenderBlush', position: 'fixed', left: '1110px', padding: '10px'}}>
 					<div>
 						<pre>
-							{JSON.stringify(this.state, null, 2)}
+							{this.props}
 						</pre>
 					</div>
 				</rmd.Card>
@@ -219,4 +188,9 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+export default connect(
+	state => ({
+		store: state
+	}),
+	dispatch => ({})
+)(App);
