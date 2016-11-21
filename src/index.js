@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Contract from './ContractComponent';
+import Offer from './OfferComponent';
 import './index.css';
 import '../node_modules/react-mdl/extra/material.css';
 import '../node_modules/react-mdl/extra/material.js';
@@ -11,7 +13,7 @@ const initialState = {
 	name: '',
 	phone_id: '',
 	activity_id: '',
-	imagePreviewUrl: '',
+	image: '',
 	contract: {
 		number: '',
 		date: '',
@@ -26,22 +28,34 @@ const initialState = {
 function combineReducer(state = initialState, action){
 	switch (action.type) {
 		case 'change_name':
-			state.name = action.payload;
+			state = Object.assign({}, state, {
+				name: action.payload
+			});
 			break;
-		case 'update_phone':
-			state.phone_id = action.payload;
+		case 'change_phone_id':
+			state = Object.assign({}, state, {
+				phone_id: action.payload
+			});
 			break;
-		case 'update_activity':
-			state.acitivity_id = action.payload;
+		case 'change_activity_id':
+			state = Object.assign({}, state, {
+				activity_id: action.payload
+			});
 			break;
 		case 'change_contract':
-			state.contract = action.payload;
+			state = Object.assign({}, state, {
+				contract: action.payload
+			});
 			break;
 		case 'change_offer':
-			state.offer = action.payload;
+			state = Object.assign({}, state, {
+				offer: action.payload
+			});
 			break;
-		case 'update_image_preview':
-			state.imagePreviewUrl = action.payload;
+		case 'change_image':
+			state = Object.assign({}, state, {
+				image: action.payload
+			});
 			break;
 		default: 
 			return state;
