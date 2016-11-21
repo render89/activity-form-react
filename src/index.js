@@ -8,8 +8,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 const initialState = {
-	name: '2',
-	phone_id: '1',
+	name: '',
+	phone_id: '',
 	activity_id: '',
 	imagePreviewUrl: '',
 	contract: {

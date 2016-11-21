@@ -14,18 +14,3 @@ input {
 .main {
 	margin-top: -10px;
 }
-.mainCard {
-	width: '512px';
-	min-height: '556px';
-	position: 'absolute';
-	background-color:'LavenderBlush';
-	padding: '10px';
-	height: 'auto';
-}
-.realTimeJSONCard {
-	width: '256px';
-	background-color:'LavenderBlush';
-	position: 'absolute';
-	right: 0;
-	padding: '10px';
-}
