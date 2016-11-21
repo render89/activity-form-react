@@ -15,20 +15,16 @@ class App extends React.Component {
 
 	handleChangeActivity(event) {
 		this.props.dispatch({ type: 'change_activity_id', payload: event.value});
-		if (event.value !== '3'){
-			this.props.dispatch({ type: 'change_contract', payload: { sum: "", file_id: "" }});
+		if (event.value !== '3') {
+			this.props.dispatch({ type: 'change_contract', payload: { number: "", date: "", file_id: "" }});
 		}
-		if (event.value !== '4'){
-			this.props.dispatch({ type: 'change_offer', payload: { number: "", date: '', file_id: "" }});
+		if (event.value !== '4') {
+			this.props.dispatch({ type: 'change_offer', payload: { sum: "", file_id: "" }});
 		}
 	};
 	
 	handleChangePhone(event) {
 		this.props.dispatch({ type: 'change_phone_id', payload: event.value });
-	};
-	
-	handleSubmit(e) {
-		e.preventDefault();
 	};
 	
 	handleImageChange(e) {
@@ -50,22 +46,25 @@ class App extends React.Component {
 			body: JSON.stringify(this.props.store)
 		})
 	};
+	
+	optionsActivity = [
+		{ value: '1', label: 'Звонок' },
+		{ value: '2', label: 'Встреча' },
+		{ value: '3', label: 'Договор' },
+		{ value: '4', label: 'Коммерческое предложение' }
+	];	
+		
+	optionsPhone = [
+		{ value: '1', label: '0933339977' },
+		{ value: '2', label: '0999997223' },
+		{ value: '3', label: '0677653211' },
+		{ value: '4', label: '0662233445' }
+	];	
 
 	render() {
-		let optionsActivity = [
-			{ value: '1', label: 'Звонок' },
-			{ value: '2', label: 'Встреча' },
-			{ value: '3', label: 'Договор' },
-			{ value: '4', label: 'Коммерческое предложение' }
-		];	
-		let optionsPhone = [
-			{ value: '1', label: '0933339977' },
-			{ value: '2', label: '0999997223' },
-			{ value: '3', label: '0677653211' },
-			{ value: '4', label: '0662233445' }
-		];		
-		let {imagePreviewUrl} = this.props.store;
-		let imagePreview = imagePreviewUrl ? <img alt="img" src={imagePreviewUrl} style={{maxWidth: '100px', maxHeight: '100px'}}/> : <h6>Загрузите фото:</h6>;	
+		
+		let {image} = this.props.store;
+		let imagePreview = image ? <img alt="img" src={image} style={{maxWidth: '100px', maxHeight: '100px'}}/> : <h6>Загрузите фото:</h6>;	
 		
 		return (
 			<div>
@@ -85,7 +84,7 @@ class App extends React.Component {
 						<Select
 							name="form-field-name"
 							value={this.props.store.phone_id}
-							options={optionsPhone}
+							options={this.optionsPhone}
 							onChange={this.handleChangePhone.bind(this)}
 							style={{align: 'center'}} />
 					</div>
@@ -94,7 +93,7 @@ class App extends React.Component {
 						<Select
 							name="form-field-name"
 							value={this.props.store.activity_id}
-							options={optionsActivity}
+							options={this.optionsActivity}
 							onChange={this.handleChangeActivity.bind(this)}
 							style={{align: 'center'}} />
 					</div>
@@ -102,12 +101,7 @@ class App extends React.Component {
 						<div>
 							{imagePreview}
 						</div>
-						<form onSubmit={this.handleSubmit.bind(this)}>
-							<input type="file" onChange={this.handleImageChange.bind(this)} />
-							<rmd.Button type="submit" onClick={this.handleSubmit.bind(this)}>
-								Отправить файл
-							</rmd.Button>
-						</form>
+						<input type="file" onChange={this.handleImageChange.bind(this)} />
 					</div>
 					{this.props.store.activity_id === '3' ? <Contract /> : ""}
 					{this.props.store.activity_id === '4' ? <Offer /> : ""}

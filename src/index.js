@@ -23,7 +23,7 @@ const initialState = {
 	}
 };
 
-function combineReducer(state = initialState, action){
+function combineReducer(state = initialState, action) {
 	switch (action.type) {
 		case 'change_name':
 			state = Object.assign({}, state, {
